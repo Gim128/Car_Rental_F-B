@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>Login Form</title>
+    <link rel="stylesheet" href="asserts/LoginStyle.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+</head>
+<body>
+
+<div class="global-container">
+    <div class="card login-form">
+        <div class="card-body">
+            <h1 class="card-title text-center">Login Here</h1>
+            <div class="card-text">
+                <form>
+                    <div class="form-group">
+                        <label for="inputID">UserID</label>
+                        <input type="text"
+                               class="form-control form-control-sm"
+                               id="inputID"
+                        />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputPassword">Password</label>
+                        <a href="#" style="float: right; font-size: 12px">Forgot Password ?</a>
+                        <input type="password"
+                               class="form-control form-control-sm"
+                               id="inputPassword"
+                        />
+                    </div>
+
+                    <button type="button" class="btn btn-primary btn-block" id="btnSignIn">Sign In</button>
+
+                    <div class="sign-up">
+                        Don't Have an Account? <a href="SignUp.html" id="signup">Create Account</a>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--<script src="asserts/js/jquery-3.6.0.min.js"></script>-->
+<!--<script src="asserts/js/jquery.session.min.js"></script>-->
+<!--<script>-->
+<!--    $('#btnSignIn').click(function () {-->
+<!--        let userName = $('#inputUserName').val();-->
+<!--        let password = $('#inputPassword').val();-->
+
+<!--        $.ajax({-->
+<!--            method: 'GET',-->
+<!--            url: 'http://localhost:8080/Easy_Car_Rent_Backend_war_exploded/easycarrent/user/searchuser/'+userName+'/'+password,-->
+<!--            async: true,-->
+<!--            contentType:'application/x-www-form-urlencoded',-->
+<!--            success: function (data) {-->
+<!--                console.log(data);-->
+<!--                // console.log(data.data.role);-->
+<!--                if (data.data.role==="admin"){-->
+<!--                    $.session.set("userID", data.data.userID);-->
+<!--                    $.session.set("obj", data.data);-->
+<!--                    $.session.set("text", data.data.role);-->
+<!--                    document.location.href="dashboard.html";-->
+<!--                }-->
+<!--            }-->
+<!--        });-->
+<!--    });-->
+
+
+<!--</script>-->
+<script src="asserts/js/jquery-3.6.0.min.js"></script>
+<script src="asserts/js/jquery.session.min.js"></script>
+<script>
+    $('#btnSignIn').click(function () {
+        let userName = $('#inputID').val();
+        let password = $('#inputPassword').val();
+        console.log(userName + " "+password);
+
+        $.ajax({
+            method: 'GET',
+            url: 'http://localhost:8080/carrent_war_exploded/easycarrent/users/searchuser/'+userName+'/'+password,
+            async: true,
+            contentType:'application/x-www-form-urlencoded',
+            success: function (data) {
+                console.log(data);
+                console.log(data.data.role);
+                if (data.data.role==="admin"){
+                    $.session.set("userID", data.data.userID);
+                    $.session.set("obj", data.data);
+                    $.session.set("text", data.data.role);
+                    document.location.href="AdminDash.html";
+                    // window.load("Ad");
+                }else if (data.data.role==="driver"){
+                    $.session.set("userID", data.data.userID);
+                    $.session.set("obj", data.data);
+                    $.session.set("text", data.data.role);
+                    document.location.href="Driver.html";
+                    // window.load("Ad");
+                }else if (data.data.role==="customer"){
+                    $.session.set("userID", data.data.userID);
+                    $.session.set("obj", data.data);
+                    $.session.set("text", data.data.role);
+                    document.location.href="GuestUser.html";
+                    // window.load("Ad");
+                }
+            }
+        });
+    });
+</script>
+
+</body>
+</html>

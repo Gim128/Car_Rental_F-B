@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Easy_Car_Rent</title>
+    <link rel="stylesheet" href="asserts/css/bootstrap.min.css">
+    <link rel="stylesheet" href="asserts/font-awesome/css/all.min.css">
+    <link rel="stylesheet" href="asserts/css/headerstyle.css">
+
+</head>
+<body>
+
+<header class="site-header sticky-top py-1">
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img src="asserts/img/download.png" alt="Easy Car Rent" width="60px" height="60px">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse"
+                 id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Rent</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Contact</a>
+                    </li>
+                </ul>
+                <form class="d-flex">
+                    <a href="LoginForm.html"><button class="btn btn-outline-light" type="button" id="btn-login">Login</button></a>
+                </form>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
+    <div class="carousel-indicators">
+        <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2" aria-label="Slide 3"></button>
+    </div>
+    <div class="carousel-inner">
+        <div class="carousel-item active" data-bs-interval="10000">
+            <img src="asserts/img/images.jpg" class="d-block w-100" alt="..." style="height: 50vh;">
+            <div class="carousel-caption d-none d-md-block">
+                <h5 class="fw-bolder">Welcome to Easy Car Rent</h5>
+                <p>Place to rent your vehicle</p>
+            </div>
+        </div>
+        <div class="carousel-item" data-bs-interval="2000">
+            <img src="asserts/img/05_bugatti_centodieci2021-1140x570.jpg" class="d-block w-100" alt="..." style="height: 50vh;">
+            <div class="carousel-caption d-none d-md-block">
+                <h5 class="fw-bolder">Welcome to Easy Car Rent</h5>
+                <p>Place to rent your vehicle</p>
+            </div>
+        </div>
+        <div class="carousel-item">
+            <img src="asserts/img/DSC_0074.jpg" class="d-block w-100" alt="..." style="height: 50vh;">
+            <div class="carousel-caption d-none d-md-block">
+                <h5 class="fw-bolder">Welcome to Easy Car Rent</h5>
+                <p>Place to rent your vehicle</p>
+            </div>
+        </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+</div>
+
+
+<div class="container px-4 py-5" id="hanging-icons">
+    <div class="row g-4 py-5 row-cols-1 row-cols-lg-3">
+        <div class="col d-flex align-items-start">
+            <div class="icon-square bg-light text-dark flex-shrink-0 me-3">
+                <svg class="bi" width="1em" height="1em"><use xlink:href="#toggles2"/></svg>
+            </div>
+            <div>
+                <h2>Featured title</h2>
+                <p>Paragraph of text beneath the heading to explain the heading. We'll add onto it with another sentence and probably just keep going until we run out of words.</p>
+                <a href="#" class="btn btn-primary">
+                    Primary button
+                </a>
+            </div>
+        </div>
+        <div class="col d-flex align-items-start">
+            <div class="icon-square bg-light text-dark flex-shrink-0 me-3">
+                <svg class="bi" width="1em" height="1em"><use xlink:href="#cpu-fill"/></svg>
+            </div>
+            <div>
+                <h2>Featured title</h2>
+                <p>Paragraph of text beneath the heading to explain the heading. We'll add onto it with another sentence and probably just keep going until we run out of words.</p>
+                <a href="#" class="btn btn-info">
+                    Primary button
+                </a>
+            </div>
+        </div>
+        <div class="col d-flex align-items-start">
+            <div class="icon-square bg-light text-dark flex-shrink-0 me-3">
+                <svg class="bi" width="1em" height="1em"><use xlink:href="#tools"/></svg>
+            </div>
+            <div>
+                <h2>Featured title</h2>
+                <p>Paragraph of text beneath the heading to explain the heading. We'll add onto it with another sentence and probably just keep going until we run out of words.</p>
+                <a href="#" class="btn btn-warning">
+                    Primary button
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer class="container-fluid py-5 bg-dark text-light site-footer">
+    <div class="row">
+        <div class="col-12 col-md">
+            <img src="asserts/img/download.png" alt="Easy Car Rent" width="60px" height="60px">
+            <small class="d-block mb-3 text-muted">&copy; 2021</small>
+        </div>
+        <div class="col-6 col-md">
+            <h5>Features</h5>
+            <ul class="list-unstyled text-small">
+                <li><a class="link-secondary" href="#">Home</a></li>
+                <li><a class="link-secondary" href="#">Rent</a></li>
+                <li><a class="link-secondary" href="#">Categories</a></li>
+                <li><a class="link-secondary" href="#">FAQ</a></li>
+            </ul>
+        </div>
+        <div class="col-6 col-md">
+            <h5>About</h5>
+            <ul class="list-unstyled text-small">
+                <li><a class="link-secondary" href="#">About</a></li>
+                <li><a class="link-secondary" href="#">Contact</a></li>
+                <li><a class="link-secondary" href="#">Privacy</a></li>
+                <li><a class="link-secondary" href="#">Terms and Conditions</a></li>
+            </ul>
+        </div>
+    </div>
+</footer>
+
+
+<script src="asserts/js/jquery-3.6.0.min.js"></script>
+<script src="asserts/js/bootstrap.min.js"></script>
+<script src="asserts/font-awesome/js/all.min.js"></script>
+</body>
+</html>

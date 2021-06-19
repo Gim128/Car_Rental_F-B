@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>SIGN UP</title>
+    <link rel="stylesheet" href="asserts/SignUp.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+</head>
+
+<body>
+<div class="global-container">
+    <div class="card login-form">
+        <div class="card-body">
+            <h1 class="card-title text-center">Login Here</h1>
+            <div class="card-text">
+                <form>
+                    <div class="form-group">
+                        <label for="inputUserName">UserName</label>
+                        <input type="text"
+                               class="form-control form-control-sm"
+                               id="inputUserName"
+                        />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputFirstName">FirstName</label>
+                        <input type="text"
+                               class="form-control form-control-sm"
+                               id="inputFirstName"
+                        />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputLastName">LastName</label>
+                        <a href="#" style="float: right; font-size: 12px"></a>
+                        <input type="text"
+                               class="form-control form-control-sm"
+                               id="inputLastName"
+                        />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputNIC">NIC</label>
+                        <a href="#" style="float: right; font-size: 12px"></a>
+                        <input type="text"
+                               class="form-control form-control-sm"
+                               id="inputNIC"
+                        />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputLNum">Lic.Number</label>
+                        <a href="#" style="float: right; font-size: 12px"></a>
+                        <input type="text"
+                               class="form-control form-control-sm"
+                               id="inputLNum"
+                        />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputAddress">Address</label>
+                        <a href="#" style="float: right; font-size: 12px"></a>
+                        <input type="text"
+                               class="form-control form-control-sm"
+                               id="inputAddress"
+                        />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputNumber">Contact</label>
+                        <a href="#" style="float: right; font-size: 12px"></a>
+                        <input type="text"
+                               class="form-control form-control-sm"
+                               id="inputNumber"
+                        />
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-block" id="btnSignIn">LogIn</button>
+
+                    <!--                    <div class="sign-up">-->
+                    <!--                        Don't Have an Account? <a href="#">Create Account</a>-->
+                    <!--                    </div>-->
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="asserts/js/jquery-3.6.0.min.js"></script>
+<script src="asserts/js/jquery.session.min.js"></script>
+<script>
+    $('#signup').click(function () {
+        let userName = $('#inputUserName').val();
+        let firstName = $('#inputFirstName').val();
+        let lastName = $('#inputLastName').val();
+        let Nic = $('#inputNIC').val();
+        let lNumber = $('#inputLNum').val();
+        let address = $('#inputAddress').val();
+        let number = $('#inputNumber').val();
+
+        $.ajax({
+            method: 'GET',
+            url: 'http://localhost:8080/Easy_Car_Rent_Backend_war_exploded/easycarrent/user/searchuser/'+userName+'/'+firstName+'/'+lastName+'/'+Nic+'/'+lNumber+'/'+address+'/'+number,
+            async: true,
+            contentType:'application/x-www-form-urlencoded',
+            success: function (data) {
+                console.log(data);
+                // console.log(data.data.role);
+                if (data.data.role==="admin"){
+                    $.session.set("userID", data.data.username);
+                    $.session.set("obj", data.data);
+                    $.session.set("text", data.data.role);
+                    document.location.href="SignUp.html";
+                }
+            }
+        });
+    });
+</script>
+
+
+</body>
+</html>
