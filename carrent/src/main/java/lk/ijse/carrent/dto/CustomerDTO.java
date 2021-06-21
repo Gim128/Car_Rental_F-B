@@ -11,14 +11,25 @@ import java.util.List;
 @AllArgsConstructor
 @Data
 public class CustomerDTO {
-    @Id
-    private String customerID;
+    private Long customerID;
     private String firstName;
     private String lastName;
-    private String nicNumber;
+    private String nic;
     private String driveLicenseNumber;
     private String address;
     private String contactNumber;
+    private String nicImage;
 
-    private List<RentDTO> rentOrder;
+//    private List<RentDTO> rentOrder;
+
+
+    public CustomerDTO(String firstName, String lastName, String nic, String driveLicenseNumber, String address, String contactNumber, String nicImage) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.nic = nic;
+        this.driveLicenseNumber = driveLicenseNumber;
+        this.address = address;
+        this.contactNumber = contactNumber;
+        this.nicImage = nicImage;
+    }
 }

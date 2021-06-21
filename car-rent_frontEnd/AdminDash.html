@@ -8,25 +8,8 @@
     <link rel="icon" href="asserts/img/download.png">
     <link rel="stylesheet" href="asserts/css/bootstrap.min.css">
     <link rel="stylesheet" href="asserts/font-awesome/css/fontawesome.min.css">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/dashboard.css">
-    <link rel="stylesheet" href="css/dashboard.rtl.css">
+    <link rel="stylesheet" href="asserts/Admindashstyle.css">
 
-    <!-- Font Awesome -->
-    <link
-            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
-            rel="stylesheet"
-    />
-    <!-- Google Fonts -->
-    <link
-            href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
-            rel="stylesheet"
-    />
-    <!-- MDB -->
-    <link
-            href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.6.0/mdb.min.css"
-            rel="stylesheet"
-    />
 
     <style>
         .bd-placeholder-img {
@@ -153,24 +136,21 @@
         integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha"
         crossorigin="anonymous"></script>
 
-<script src="js/jquery-3.6.0.min.js"></script>
-<script src="js/jquery.session.min.js"></script>
-<script src="js/bootstrap/bootstrap.bundle.js"></script>
-<script src="asserts/fontawesome/js/all.min.js"></script>
-<script src="js/main.js"></script>
-<script src="js/dashboard.js"></script>
+<script src="asserts/js/jquery-3.6.0.min.js"></script>
+<script src="asserts/js/jquery.session.min.js"></script>
+<script src="asserts/js/bootstrap.bundle.js"></script>
+<script src="asserts/font-awesome/js/all.min.js"></script>
+<!--<script src="js/main.js"></script>-->
 
-<!-- MDB -->
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.6.0/mdb.min.js"></script>
 <script>
     $(document).ready(function () {
 
-        $('#dash-view').load("sub/dash-default.html");
-        // $('#userID').text("Pasan");
+        $('#dash-view').load("subCatelogue/customer.html");
+        // $('#userID').text("Gimhaan");
 
         $.ajax({
             method: 'GET',
-            url: 'http://localhost:8080/Easy_Car_Rent_Backend_war_exploded/easycarrent/admin/search/' + $.session.get("userID"),
+            url: 'http://localhost:8080/http://localhost:8080/carrent_war_exploded/easycarrent/admin/search/' + $.session.get("userID"),
             async: true,
             contentType: 'application/x-www-form-urlencoded',
             success: function (data) {
@@ -185,14 +165,16 @@
     });
 
     $('#lblDashboard').click(function () {
-        $('#dash-view').load("sub/dash-default.html");
+        $('#dash-view').load("subCatelogue/customert.html");
         $('#lblDashboard a').addClass('active');
         $('#lblManageCustomers a').removeClass('active');
+        $('#lblManageVehicles a').removeClass('active');
     });
     $('#lblManageCustomers').click(function () {
-        $('#dash-view').load("sub/dash-customer.html");
+        $('#dash-view').load("Driver.html");
         $('#lblManageCustomers a').addClass('active');
         $('#lblDashboard a').removeClass('active');
+        $('#lblManageVehicles a').removeClass('active');
     });
 </script>
 </body>

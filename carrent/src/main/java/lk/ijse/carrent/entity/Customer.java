@@ -4,10 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.List;
 
 @Entity
@@ -16,13 +13,16 @@ import java.util.List;
 @Data
 public class Customer {
     @Id
-    private String customerID;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long customerID;
     private String firstName;
     private String lastName;
-    private String nicNumber;
+    private String nic;
     private String driveLicenseNumber;
     private String address;
     private String contactNumber;
+    @Column(length = 1500)
+    private String nicImage;
     @OneToMany(mappedBy = "customer",cascade = {CascadeType.ALL})
     private List<Rent> rentOrder;
 

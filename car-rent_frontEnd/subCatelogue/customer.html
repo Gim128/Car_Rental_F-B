@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Customer</title>
+
+    <link rel="icon" href="../asserts/img/download.png">
+    <link rel="stylesheet" href="../asserts/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../asserts/font-awesome/css/fontawesome.min.css">
+    <link rel="stylesheet" href="../asserts/Admindashstyle.css">
+
+    <style>
+        #searchForm {
+            position: relative;
+            width: 200px;
+        }
+
+        #searchForm input {
+            width: 100%;
+            padding-right: 20px;
+            box-sizing: border-box;
+        }
+
+        #searchForm input:placeholder-shown + button {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        #searchForm button {
+            position: absolute;
+            border: none;
+            display: block;
+            width: 15px;
+            height: 15px;
+            line-height: 16px;
+            font-size: 12px;
+            border-radius: 50%;
+            top: 0;
+            bottom: 0;
+            right: 5px;
+            margin: auto;
+            background: #ddd;
+            padding: 0;
+            outline: none;
+            cursor: pointer;
+            transition: .1s;
+        }
+    </style>
+</head>
+<body>
+
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Customer</h1>
+    <div class="btn-toolbar mb-2 mb-md-0">
+        <div class="btn-group me-2">
+            <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
+            <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="text-center fw-bolder fs-3">Customer ID : <span id="lblCustomerID">###</span></div>
+    <br>
+    <form class="row g-3">
+        <div class="col-md-6">
+            <label for="txtFirstName" class="form-label">First Name</label>
+            <input type="text" class="form-control" id="txtFirstName" placeholder="Enter First Name">
+        </div>
+        <div class="col-md-6">
+            <label for="txtLastName" class="form-label">Last Name</label>
+            <input type="text" class="form-control" id="txtLastName" placeholder="Enter Last Name">
+        </div>
+        <div class="col-md-4">
+            <label for="txtContactNumber" class="form-label">Mobile Number</label>
+            <input type="text" class="form-control" id="txtContactNumber"
+                   placeholder="Enter Mobile Number Ex: 947xxxxxxxx">
+        </div>
+        <div class="col-md-4">
+            <label for="txtNic" class="form-label">NIC Number</label>
+            <input type="text" class="form-control" id="txtNic" placeholder="Enter NIC Number">
+        </div>
+        <div class="col-md-4">
+            <label for="txtDrivingLicense" class="form-label">Driving License Number</label>
+            <input type="text" class="form-control" id="txtDrivingLicense" placeholder="Enter Driving License">
+        </div>
+        <div class="col-md-6">
+            <label for="txtAddress" class="form-label">Address</label>
+            <input type="text" class="form-control" id="txtAddress" placeholder="Enter Address">
+        </div>
+        <div class="col-md-4">
+            <label for="uploadNic" class="form-label">Upload NIC Image</label>
+            <input class="form-control" type="file" id="uploadNic" accept="image/*">
+        </div>
+        <div class="col-md-2">
+            <img src="../asserts/img/temp1x1.jpg" class="img-thumbnail" alt="..." id="imgNic">
+        </div>
+        <div class="col-12">
+            <button type="button" class="btn btn-primary" id="btnAdd">Add</button>
+            <button type="button" class="btn btn-success d-none" id="btnUpdate">Update</button>
+            <button type="button" class="btn btn-warning d-none" id="btnDelete">Delete</button>
+            <button type="reset" class="btn btn-outline-dark" id="btnClear">Clear</button>
+        </div>
+    </form>
+</div>
+<br><br>
+<h2>Section title</h2>
+<div class="container-fluid">
+    <form class="row g-3" id="searchForm">
+        <input type="text" class="form-control" id="txtSearch" placeholder="Search by Name">
+        <button type="reset" id="btnSearchClear">&times;</button>
+    </form>
+</div>
+<div class="table-responsive">
+    <table class="table table-striped table-sm table-hover">
+        <thead>
+        <tr>
+            <th>Customer ID</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>NIC</th>
+            <th>Driver Licence No</th>
+            <th>Address</th>
+            <th>Contact Number</th>
+        </tr>
+        </thead>
+        <tbody id="tblCustomer">
+        </tbody>
+    </table>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js"
+        integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"
+        integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha"
+        crossorigin="anonymous"></script>
+
+<script src="../asserts/js/bootstrap.min.js"></script>
+<script src="../asserts/css/"></script>
+<script src="../asserts/font-awesome/js/fontawesome.min.js"></script>
+<script src="../asserts/js/jquery-3.6.0.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        loadAllCustomerToTheTable();
+    })
+
+    function loadAllCustomerToTheTable() {
+        $('#tblCustomer>tr').off('click');
+
+        $('#tblCustomer').empty();
+
+        $.ajax({
+            url: "http://localhost:8080/carrent_war_exploded/easycarrent/customer",
+            dataType: 'json',
+            type: 'get',
+            cache: false,
+            success: function (data) {
+                console.log(data)
+                console.log(data.data.length)
+                var event_data = '';
+                $.each(data.data, function (index, value) {
+                    event_data += '<tr>';
+                    event_data += '<td>' + value.customerID + '</td>';
+                    event_data += '<td>' + value.firstName + '</td>';
+                    event_data += '<td>' + value.lastName + '</td>';
+                    event_data += '<td>' + value.nic + '</td>';
+                    event_data += '<td>' + value.driveLicenseNumber + '</td>';
+                    event_data += '<td>' + value.address + '</td>';
+                    event_data += '<td>' + value.contactNumber + '</td>';
+                    event_data += '<tr>';
+                });
+                $("#tblCustomer").append(event_data);
+                $('#tblCustomer>tr').css('cursor', 'pointer');
+
+                $('#tblCustomer>tr').click(function () {
+                    let id = $(this).children('td:eq(0)').text();
+                    let fname = $(this).children('td:eq(1)').text();
+                    let lname = $(this).children('td:eq(2)').text();
+                    let nic = $(this).children('td:eq(3)').text();
+                    let driverLicense = $(this).children('td:eq(4)').text();
+                    let address = $(this).children('td:eq(5)').text();
+                    let contact = $(this).children('td:eq(6)').text();
+
+                    $('#lblCustomerID').text(id);
+                    $('#txtFirstName').val(fname);
+                    $('#txtLastName').val(lname);
+                    $('#txtNic').val(nic);
+                    $('#txtDrivingLicense').val(driverLicense);
+                    $('#txtAddress').val(address);
+                    $('#txtContactNumber').val(contact);
+
+                    $('#btnAdd').addClass('d-none');
+                    $('#btnUpdate').removeClass('d-none');
+                    $('#btnDelete').removeClass('d-none');
+                });
+            }
+        })
+    }
+
+    $('#btnClear').click(function () {
+        $('#btnAdd').removeClass('d-none');
+        $('#btnUpdate').addClass('d-none');
+        $('#btnDelete').addClass('d-none');
+    });
+
+    $('#txtSearch').on('keyup', function (event) {
+        let search = $('#txtSearch').val();
+        console.log(search);
+
+        $('#tblCustomer').empty();
+
+        $.ajax({
+            url: "http://localhost:8080/carrent_war_exploded/easycarrent/customer/searchByName/" + search,
+            dataType: 'json',
+            type: 'get',
+            cache: false,
+            success: function (data) {
+                console.log(data)
+                console.log(data.data.length)
+                var event_data = '';
+                $.each(data.data, function (index, value) {
+                    event_data += '<tr>';
+                    event_data += '<td>' + value.customerID + '</td>';
+                    event_data += '<td>' + value.firstName + '</td>';
+                    event_data += '<td>' + value.lastName + '</td>';
+                    event_data += '<td>' + value.nic + '</td>';
+                    event_data += '<td>' + value.driveLicenseNumber + '</td>';
+                    event_data += '<td>' + value.address + '</td>';
+                    event_data += '<td>' + value.contactNumber + '</td>';
+                    event_data += '<tr>';
+                });
+                $("#tblCustomer").append(event_data);
+                $('#tblCustomer>tr').css('cursor', 'pointer');
+
+                $('#tblCustomer>tr').click(function () {
+                    let id = $(this).children('td:eq(0)').text();
+                    let fname = $(this).children('td:eq(1)').text();
+                    let lname = $(this).children('td:eq(2)').text();
+                    let nic = $(this).children('td:eq(3)').text();
+                    let driverLicense = $(this).children('td:eq(4)').text();
+                    let address = $(this).children('td:eq(5)').text();
+                    let contact = $(this).children('td:eq(6)').text();
+
+                    $('#lblCustomerID').text(id);
+                    $('#txtFirstName').val(fname);
+                    $('#txtLastName').val(lname);
+                    $('#txtNic').val(nic);
+                    $('#txtDrivingLicense').val(driverLicense);
+                    $('#txtAddress').val(address);
+                    $('#txtContactNumber').val(contact);
+
+                    $('#btnAdd').addClass('d-none');
+                    $('#btnUpdate').removeClass('d-none');
+                    $('#btnDelete').removeClass('d-none');
+                });
+            }
+        });
+    });
+
+    $('#btnAdd').click(function () {
+        let customerID = $('#lblCustomerID').text();
+        let firstName = $('#txtFirstName').val();
+        let lastName = $('#txtLastName').val();
+        let nic = $('#txtNic').val();
+        let drivingLicense = $('#txtDrivingLicense').val();
+        let address = $('#txtAddress').val();
+        let contactNumber = $('#txtContactNumber').val();
+
+        var fileObject = $("#uploadNic")[0].files[0];
+        var fileName = $("#uploadNic")[0].files[0].name; //get file name
+
+        var data = new FormData();
+        data.append("myFile", fileObject, fileName);
+
+
+        $.ajax({
+            method: "POST",
+            url: "http://localhost:8080/carrent_war_exploded/file",
+            processData: false,
+            async: true,
+            data: data,
+            contentType: false,
+            success: function (data) {
+                console.log(data.data);
+
+                $.ajax({
+                    method: "POST",
+                    url: "http://localhost:8080/carrent_war_exploded/easycarrent/customer",
+                    async: true,
+                    contentType: 'application/json',
+                    data: JSON.stringify({
+                        firstName: firstName,
+                        lastName: lastName,
+                        nic: nic,
+                        driveLicenseNumber: drivingLicense,
+                        address: address,
+                        contactNumber: contactNumber,
+                        nicImage: data.data
+                        // rentOrder: null
+                    }),
+                    success: function (data) {
+                        console.log(data.data);
+                        loadAllCustomerToTheTable();
+                    }, error: function (data) {
+                        alert("Customer : " + data.data);
+                    }
+                });
+
+            }, error: function (data) {
+                alert("File : " + data.data);
+            }
+        });
+
+    });
+
+    $('#btnSearchClear').click(function () {
+        loadAllCustomerToTheTable();
+    });
+
+    $('#btnUpdate').click(function () {
+        loadAllCustomerToTheTable();
+    });
+
+</script>
+</body>
+</html>
