@@ -17,10 +17,10 @@
             <div class="card-text">
                 <form>
                     <div class="form-group">
-                        <label for="inputID">UserID</label>
+                        <label for="inputName">UserName</label>
                         <input type="text"
                                class="form-control form-control-sm"
-                               id="inputID"
+                               id="inputName"
                         />
                     </div>
 
@@ -77,20 +77,22 @@
 <script src="asserts/js/jquery.session.min.js"></script>
 <script>
     $('#btnSignIn').click(function () {
-        let userName = $('#inputID').val();
+        let userName = $('#inputName').val();
         let password = $('#inputPassword').val();
         console.log(userName + " "+password);
+
+
 
         $.ajax({
             method: 'GET',
             url: 'http://localhost:8080/carrent_war_exploded/easycarrent/users/searchuser/'+userName+'/'+password,
             async: true,
-            contentType:'application/x-www-form-urlencoded',
+            // contentType:'application/x-www-form-urlencoded',
             success: function (data) {
                 console.log(data);
                 console.log(data.data.role);
                 if (data.data.role==="admin"){
-                    $.session.set("userID", data.data.userID);
+                    $.session.set("userName", data.data.username);
                     $.session.set("obj", data.data);
                     $.session.set("text", data.data.role);
                     document.location.href="AdminDash.html";

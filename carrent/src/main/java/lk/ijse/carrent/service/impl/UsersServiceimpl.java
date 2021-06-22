@@ -72,7 +72,9 @@ public class UsersServiceimpl implements UsersService {
     @Override
     public UsersDTO searchByUser(String id, String password) {
         Users op = usersRepo.searchByUserNameAndPassword(id, password);
-        if (!op.equals(null)) {
+        if (op==null) {
+            System.out.println("Not Found");
+        }else{
             return mapper.map(op, UsersDTO.class);
         }
         return null;
