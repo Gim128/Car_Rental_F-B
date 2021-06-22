@@ -94,12 +94,12 @@
             <input class="form-control" type="file" id="uploadNic" accept="image/*">
         </div>
         <div class="col-md-2">
-            <img src="../asserts/img/temp1x1.jpg" class="img-thumbnail" alt="..." id="imgNic">
+            <img src="../asserts/img/car.png" class="img-thumbnail" alt="..." id="imgNic">
         </div>
         <div class="col-12">
             <button type="button" class="btn btn-primary" id="btnAdd">Add</button>
-            <button type="button" class="btn btn-success d-none" id="btnUpdate">Update</button>
-            <button type="button" class="btn btn-warning d-none" id="btnDelete">Delete</button>
+            <button type="button" class="btn btn-success" id="btnUpdate">Update</button>
+            <button type="button" class="btn btn-warning" id="btnDelete">Delete</button>
             <button type="reset" class="btn btn-outline-dark" id="btnClear">Clear</button>
         </div>
     </form>
@@ -138,10 +138,16 @@
         integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha"
         crossorigin="anonymous"></script>
 
-<script src="../asserts/js/bootstrap.min.js"></script>
-<script src="../asserts/css/"></script>
-<script src="../asserts/font-awesome/js/fontawesome.min.js"></script>
 <script src="../asserts/js/jquery-3.6.0.min.js"></script>
+<script src="../asserts/js/jquery.session.min.js"></script>
+<script src="../asserts/js/bootstrap.bundle.js"></script>
+<script src="../asserts/js/bootstrap.min.js"></script>
+<script src="../asserts/font-awesome/js/fontawesome.min.js"></script>
+<script src="../asserts/js/main.js"></script>
+
+
+
+<script src="../asserts/js/main.js"></script>
 
 <script>
     $(document).ready(function () {
@@ -193,6 +199,17 @@
                     $('#txtAddress').val(address);
                     $('#txtContactNumber').val(contact);
 
+                    $.ajax({
+                        url: "http://localhost:8080/carrent_war_exploded/easycarrent/customer/search/" + id,
+                        dataType: 'json',
+                        type: 'get',
+                        cache: false,
+                        success: function (data) {
+                            let nicImage = data.data.nicImage;
+                            document.getElementById('imgNic').setAttribute('src', '..' + getImgPath(nicImage));
+                        }
+                    });
+
                     $('#btnAdd').addClass('d-none');
                     $('#btnUpdate').removeClass('d-none');
                     $('#btnDelete').removeClass('d-none');
@@ -200,12 +217,6 @@
             }
         })
     }
-
-    $('#btnClear').click(function () {
-        $('#btnAdd').removeClass('d-none');
-        $('#btnUpdate').addClass('d-none');
-        $('#btnDelete').addClass('d-none');
-    });
 
     $('#txtSearch').on('keyup', function (event) {
         let search = $('#txtSearch').val();
@@ -253,6 +264,17 @@
                     $('#txtAddress').val(address);
                     $('#txtContactNumber').val(contact);
 
+                    $.ajax({
+                        url: "http://localhost:8080/carrent_war_exploded/customer/search/" + id,
+                        dataType: 'json',
+                        type: 'get',
+                        cache: false,
+                        success: function (data) {
+                            let nicImage = data.data.nicImage;
+                            document.getElementById('imgNic').setAttribute('src', '..' + getImgPath(nicImage));
+                        }
+                    });
+
                     $('#btnAdd').addClass('d-none');
                     $('#btnUpdate').removeClass('d-none');
                     $('#btnDelete').removeClass('d-none');
@@ -277,53 +299,129 @@
         data.append("myFile", fileObject, fileName);
 
 
+        if (uploadImage(data) !== "") {
+            $.ajax({
+                method: "POST",
+                url: "http://localhost:8080/carrent_war_exploded/easycarrent/customer",
+                async: true,
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    firstName: firstName,
+                    lastName: lastName,
+                    nic: nic,
+                    driveLicenseNumber: drivingLicense,
+                    address: address,
+                    contactNumber: contactNumber,
+                    nicImage: $.session.get("imgPath")
+                    // rentOrder: null
+                }),
+                success: function (data) {
+                    console.log(data.data);
+                    clearForm();
+                }, error: function (data) {
+                    alert("Customer : " + data.data);
+                }
+            });
+        } else {
+            alert("$.session.get(\"imgPath\") -> File : " + data.data);
+        }
+
+    });
+
+    $('#btnUpdate').click(function () {
+        let customerID = $('#lblCustomerID').text();
+        let firstName = $('#txtFirstName').val();
+        let lastName = $('#txtLastName').val();
+        let nic = $('#txtNic').val();
+        let drivingLicense = $('#txtDrivingLicense').val();
+        let address = $('#txtAddress').val();
+        let contactNumber = $('#txtContactNumber').val();
+
+        var fileObject = $("#uploadNic")[0].files[0];
+        var fileName = $("#uploadNic")[0].files[0].name; //get file name
+
+        var data = new FormData();
+        data.append("myFile", fileObject, fileName);
+
+
+        if (uploadImage(data) !== "") {
+            $.ajax({
+                method: "PUT",
+                url: "http://localhost:8080/carrent_war_exploded/easycarrent/customer",
+                async: true,
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    customerID: customerID,
+                    firstName: firstName,
+                    lastName: lastName,
+                    nic: nic,
+                    driveLicenseNumber: drivingLicense,
+                    address: address,
+                    contactNumber: contactNumber,
+                    nicImage: $.session.get("imgPath")
+                    // rentOrder: null
+                }),
+                success: function (data) {
+                    console.log(data.data);
+                    clearForm();
+                }, error: function (data) {
+                    alert("Customer : " + data.data);
+                }
+            });
+        } else {
+            alert("$.session.get(\"imgPath\") -> File : " + data.data);
+        }
+
+    });
+
+    $('#btnDelete').click(function () {
+        let customerID = $('#lblCustomerID').text();
+
         $.ajax({
-            method: "POST",
-            url: "http://localhost:8080/carrent_war_exploded/file",
-            processData: false,
+            method: "DELETE",
+            url: "http://localhost:8080/carrent_war_exploded/easycarrent/customer",
             async: true,
-            data: data,
-            contentType: false,
+            data: customerID,
             success: function (data) {
                 console.log(data.data);
-
-                $.ajax({
-                    method: "POST",
-                    url: "http://localhost:8080/carrent_war_exploded/easycarrent/customer",
-                    async: true,
-                    contentType: 'application/json',
-                    data: JSON.stringify({
-                        firstName: firstName,
-                        lastName: lastName,
-                        nic: nic,
-                        driveLicenseNumber: drivingLicense,
-                        address: address,
-                        contactNumber: contactNumber,
-                        nicImage: data.data
-                        // rentOrder: null
-                    }),
-                    success: function (data) {
-                        console.log(data.data);
-                        loadAllCustomerToTheTable();
-                    }, error: function (data) {
-                        alert("Customer : " + data.data);
-                    }
-                });
-
+                clearForm();
             }, error: function (data) {
-                alert("File : " + data.data);
+                alert("Customer : " + data.data);
             }
         });
+    });
 
+    $('#uploadNic').change(() => {
+        const file = $('#uploadNic').prop("files")[0];
+        const imagen = URL.createObjectURL(file);
+        console.log(URL.createObjectURL(file));
+        $('#imgNic').attr('src', imagen);
     });
 
     $('#btnSearchClear').click(function () {
         loadAllCustomerToTheTable();
     });
 
-    $('#btnUpdate').click(function () {
-        loadAllCustomerToTheTable();
+    $('#btnClear').click(function () {
+        clearForm();
     });
+
+    function clearForm() {
+        $('#btnAdd').removeClass('d-none');
+        $('#btnUpdate').addClass('d-none');
+        $('#btnDelete').addClass('d-none');
+        loadAllCustomerToTheTable();
+        $('#lblCustomerID').text("###");
+        document.getElementById('imgNic').setAttribute('src', "../asserts/img/temp1x1.jpg");
+        $('#txtFirstName').clear();
+        $('#txtLastName').clear();
+        $('#txtNic').clear();
+        $('#txtDrivingLicense').clear();
+        $('#txtAddress').clear();
+        $('#txtContactNumber').clear();
+        $('#uploadNic').clear();
+        $('#imgNic').attr('src', "../asserts/img/temp1x1.jpg");
+    }
 
 </script>
 </body>
