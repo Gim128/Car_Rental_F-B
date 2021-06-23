@@ -11,6 +11,11 @@
     <link rel="stylesheet" href="../asserts/Admindashstyle.css">
 
     <style>
+
+        body{
+            background-image: url(../asserts/img/andre-tan-M-l5yWB38gg-unsplash.jpg);
+        }
+
         #searchForm {
             position: relative;
             width: 200px;
@@ -54,8 +59,8 @@
     <h1 class="h2">Customer</h1>
     <div class="btn-toolbar mb-2 mb-md-0">
         <div class="btn-group me-2">
-            <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
-            <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
+            <button type="button" class="btn btn-sm btn-outline-primary">Share</button>
+            <button type="button" class="btn btn-sm btn-outline-info">Export</button>
         </div>
     </div>
 </div>
@@ -64,32 +69,32 @@
     <div class="text-center fw-bolder fs-3">Customer ID : <span id="lblCustomerID">###</span></div>
     <br>
     <form class="row g-3">
-        <div class="col-md-6">
+        <div class="col-md-8">
             <label for="txtFirstName" class="form-label">First Name</label>
-            <input type="text" class="form-control" id="txtFirstName" placeholder="Enter First Name">
+            <input type="text" class="form-control" id="txtFirstName" placeholder="Your First Name">
         </div>
-        <div class="col-md-6">
+        <div class="col-md-8">
             <label for="txtLastName" class="form-label">Last Name</label>
-            <input type="text" class="form-control" id="txtLastName" placeholder="Enter Last Name">
+            <input type="text" class="form-control" id="txtLastName" placeholder="Your Last Name">
         </div>
-        <div class="col-md-4">
+        <div class="col-md-8">
             <label for="txtContactNumber" class="form-label">Mobile Number</label>
             <input type="text" class="form-control" id="txtContactNumber"
-                   placeholder="Enter Mobile Number Ex: 947xxxxxxxx">
+                   placeholder="Your Mobile Number Ex: +947xxxxxxxx">
         </div>
-        <div class="col-md-4">
+        <div class="col-md-6">
             <label for="txtNic" class="form-label">NIC Number</label>
-            <input type="text" class="form-control" id="txtNic" placeholder="Enter NIC Number">
+            <input type="text" class="form-control" id="txtNic" placeholder="Your NIC Number">
         </div>
         <div class="col-md-4">
-            <label for="txtDrivingLicense" class="form-label">Driving License Number</label>
+            <label for="txtDrivingLicense" class="form-label">D.License Number</label>
             <input type="text" class="form-control" id="txtDrivingLicense" placeholder="Enter Driving License">
         </div>
         <div class="col-md-6">
             <label for="txtAddress" class="form-label">Address</label>
             <input type="text" class="form-control" id="txtAddress" placeholder="Enter Address">
         </div>
-        <div class="col-md-4">
+        <div class="col-md-8">
             <label for="uploadNic" class="form-label">Upload NIC Image</label>
             <input class="form-control" type="file" id="uploadNic" accept="image/*">
         </div>
