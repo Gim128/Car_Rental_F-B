@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Cars</title>
+
+    <link rel="icon" href="../asserts/img/download.png">
+    <link rel="stylesheet" href="../asserts/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../asserts/font-awesome/css/all.min.css">
+    <link rel="stylesheet" href="../asserts/css/headerstyle.css">
+
+    <style>
+        #searchForm {
+            position: relative;
+            width: 95%;
+        }
+
+        #searchForm input {
+            width: 100%;
+            padding-right: 20px;
+            box-sizing: border-box;
+        }
+
+        #searchForm input:placeholder-shown + button {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        #searchForm button {
+            position: absolute;
+            border: none;
+            display: block;
+            width: 15px;
+            height: 15px;
+            line-height: 16px;
+            font-size: 12px;
+            border-radius: 50%;
+            top: 0;
+            bottom: 0;
+            right: 5px;
+            margin: auto;
+            background: #ddd;
+            padding: 0;
+            outline: none;
+            cursor: pointer;
+            transition: .1s;
+        }
+    </style>
+</head>
+<body>
+
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Vehicle</h1>
+    <div class="btn-toolbar mb-2 mb-md-0">
+        <div class="btn-group me-2">
+            <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
+            <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="text-center fw-bolder fs-3">Vehicle ID : <span id="lblVehicleID">***</span></div>
+    <br>
+    <form class="row g-3">
+        <div class="col-md-6">
+            <label for="txtBrand" class="form-label">Brand</label>
+            <input type="text" class="form-control" id="txtBrand" placeholder="Enter Brand Name">
+        </div>
+        <div class="col-md-6">
+            <label for="txtModel" class="form-label">Model</label>
+            <input type="text" class="form-control" id="txtModel" placeholder="Model Name">
+        </div>
+        <div class="col-md-12">
+            <label for="cmbType" class="form-label">Type</label>
+            <select class="form-select" aria-label="Default select example" id="cmbType">
+                <option selected>select</option>
+                <option value="General">General Cars</option>
+                <option value="Premium">Premium Cars</option>
+                <option value="Luxury">Luxury Cars</option>
+            </select>
+        </div>
+        <div class="col-md-6">
+            <label for="txtRegNumber" class="form-label">Register Number</label>
+            <input type="text" class="form-control" id="txtRegNumber" placeholder="Register Number">
+        </div>
+        <div class="col-md-6">
+            <label for="txtColor" class="form-label">Color</label>
+            <input type="text" class="form-control" id="txtColor" placeholder="Vehicle Color">
+        </div>
+        <div class="col-md-12">
+            <label for="cmbTransmission" class="form-label">Transmission</label>
+            <select class="form-select" aria-label="Default select example" id="cmbTransmission">
+                <option selected>Open this select menu</option>
+                <option value="Auto">Manual</option>
+                <option value="Manual">Auto</option>
+            </select>
+        </div>
+        <div class="col-md-12">
+            <label for="cmbFuel" class="form-label">Fuel</label>
+            <select class="form-select" aria-label="Default select example" id="cmbFuel">
+                <option selected>Select</option>
+                <option value="Diesel">Diesel</option>
+                <option value="Petrol">Petrol</option>
+
+            </select>
+        </div>
+        <div class="col-md-6">
+            <label for="txtNoOfPassengers" class="form-label">No.of Passengers</label>
+            <input type="number" class="form-control" id="txtNoOfPassengers" placeholder="No. of Passengers">
+        </div>
+        <div class="col-md-6">
+            <label for="txtExtraFee" class="form-label">Extra Fee</label>
+            <input type="number" class="form-control" id="txtExtraFee" placeholder="Extra Fee">
+        </div>
+        <div class="col-md-6">
+            <label for="txtDailyRent" class="form-label">Daily Rent</label>
+            <input type="number" class="form-control" id="txtDailyRent" placeholder="Daily Rent">
+        </div>
+        <div class="col-md-6">
+            <label for="txtDailyKM" class="form-label">Daily KM</label>
+            <input type="number" class="form-control" id="txtDailyKM" placeholder="Daily KM">
+        </div>
+        <div class="col-md-6">
+            <label for="txtMonthlyRent" class="form-label">Monthly Rent</label>
+            <input type="number" class="form-control" id="txtMonthlyRent" placeholder="Enter Monthly Rent">
+        </div>
+        <div class="col-md-6">
+            <label for="txtMonthlyKM" class="form-label">Monthly KM</label>
+            <input type="number" class="form-control" id="txtMonthlyKM" placeholder="Enter Monthly KM">
+        </div>
+        <div class="col-md-5">
+            <label for="uploadFrontView" class="form-label">Upload Front View</label>
+            <input class="form-control" type="file" id="uploadFrontView" accept="image/*">
+        </div>
+        <div class="col-md-1">
+            <img src="../asserts/img/car.png" class="img-thumbnail" alt="..." id="imgFrontView">
+        </div>
+        <div class="col-md-5">
+            <label for="uploadBackView" class="form-label">Upload Back View</label>
+            <input class="form-control" type="file" id="uploadBackView" accept="image/*">
+        </div>
+        <div class="col-md-1">
+            <img src="../asserts/img/52f1914c95d77134b9fc1ccbf25255f8.jpg" class="img-thumbnail" alt="..." id="imgBackView">
+        </div>
+        <div class="col-md-5">
+            <label for="uploadSideView" class="form-label">Upload Side View</label>
+            <input class="form-control" type="file" id="uploadSideView" accept="image/*">
+        </div>
+        <div class="col-md-1">
+            <img src="../asserts/img/car-transportation-vehicle-flat-auto-260nw-1689608614.jpg" class="img-thumbnail" alt="..." id="imgSideView">
+        </div>
+        <div class="col-md-5">
+            <label for="uploadInteriorView" class="form-label">Upload Interior View</label>
+            <input class="form-control" type="file" id="uploadInteriorView" accept="image/*">
+        </div>
+        <div class="col-md-1">
+            <img src="../asserts/img/car-icon-260nw-588749990.jpg" class="img-thumbnail" alt="..." id="imgInteriorView">
+        </div>
+        <div class="col-12">
+            <button type="button" class="btn btn-primary" id="btnAdd">Add</button>
+            <button type="button" class="btn btn-success d-none" id="btnUpdate">Update</button>
+            <button type="button" class="btn btn-warning d-none" id="btnDelete">Delete</button>
+            <button type="reset" class="btn btn-outline-dark" id="btnClear">Clear</button>
+        </div>
+    </form>
+</div>
+<br><br>
+<h2>List</h2>
+<div class="container-fluid">
+    <form class="row g-3" id="searchForm">
+        <input type="text" class="form-control" id="txtSearch" placeholder="Search by Register Number">
+        <button type="reset" id="btnSearchClear">&times;</button>
+    </form>
+</div>
+<div class="table-responsive">
+    <table class="table table-striped table-sm table-hover">
+        <thead>
+        <tr>
+            <th>Vehicle ID</th>
+            <th>Register Number</th>
+            <th>Brand</th>
+            <th>Model</th>
+            <th>Type</th>
+            <th>Color</th>
+            <th>Transmission</th>
+            <th>Fuel</th>
+            <th>Passengers</th>
+        </tr>
+        </thead>
+        <tbody id="tblVehicle">
+        </tbody>
+    </table>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js"
+        integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"
+        integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha"
+        crossorigin="anonymous"></script>
+
+<script src="../asserts/js/jquery-3.6.0.min.js"></script>
+<script src="../asserts/js/jquery.session.min.js"></script>
+<script src="../asserts/js/bootstrap.bundle.js"></script>
+<script src="../asserts/font-awesome/js/all.min.js"></script>
+<script src="../asserts/js/main.js"></script>
+
+<script>
+    var VEHICLE_PATH = URL_PATH + "/easycarrent/vehicle";
+
+    $(document).ready(function () {
+        loadAllVehicleToTheTable();
+    })
+
+    function loadAllVehicleToTheTable() {
+        $('#tblVehicle>tr').off('click');
+
+        $('#tblVehicle').empty();
+
+        $.ajax({
+            url: VEHICLE_PATH,
+            dataType: 'json',
+            type: 'get',
+            cache: false,
+            success: function (data) {
+                console.log(data)
+                console.log(data.data.length)
+                var event_data = '';
+                $.each(data.data, function (index, value) {
+                    event_data += '<tr>';
+                    event_data += '<td>' + value.vehicleID + '</td>';
+                    event_data += '<td>' + value.regNumber + '</td>';
+                    event_data += '<td>' + value.brand + '</td>';
+                    event_data += '<td>' + value.model + '</td>';
+                    event_data += '<td>' + value.type + '</td>';
+                    event_data += '<td>' + value.color + '</td>';
+                    event_data += '<td>' + value.transmissionType + '</td>';
+                    event_data += '<td>' + value.fuelType + '</td>';
+                    event_data += '<td>' + value.passNumber + '</td>';
+                    event_data += '<tr>';
+                });
+                $("#tblVehicle").append(event_data);
+                $('#tblVehicle>tr').css('cursor', 'pointer');
+
+                $('#tblVehicle>tr').click(function () {
+                    let id = $(this).children('td:eq(0)').text();
+
+                    $('#lblVehicleID').text(id);
+
+                    $.ajax({
+                        url: VEHICLE_PATH+"/search/" + id,
+                        dataType: 'json',
+                        type: 'get',
+                        cache: false,
+                        success: function (data) {
+                            $('#txtBrand').val(data.data.brand);
+                            $('#txtModel').val(data.data.model);
+                            $('#txtRegNumber').val(data.data.regNumber);
+                            $('#txtColor').val(data.data.color);
+                            $('#txtNoOfPassengers').val(data.data.passNumber);
+                            $('#txtExtraFee').val(data.data.extraFee);
+                            $('#txtDailyRent').val(data.data.dailyRent);
+                            $('#txtDailyKM').val(data.data.dailyKM);
+                            $('#txtMonthlyRent').val(data.data.monthlyRent);
+                            $('#txtMonthlyKM').val(data.data.monthlyKM);
+                            $('#cmbType').val(data.data.type);
+                            $('#cmbTransmission').val(data.data.transmissionType);
+                            $('#cmbFuel').val(data.data.fuelType);
+                            document.getElementById('uploadFrontView').setAttribute('src', '..' + getImgPath(data.data.fontView));
+                            document.getElementById('uploadBackView').setAttribute('src', '..' + getImgPath(data.data.sideView));
+                            document.getElementById('uploadSideView').setAttribute('src', '..' + getImgPath(data.data.backView));
+                            document.getElementById('uploadInteriorView').setAttribute('src', '..' + getImgPath(data.data.interiorView));
+                        }
+                    });
+
+                    $('#btnAdd').addClass('d-none');
+                    $('#btnUpdate').removeClass('d-none');
+                    $('#btnDelete').removeClass('d-none');
+                });
+            }
+        })
+    }
+
+    $('#txtSearch').on('keyup', function (event) {
+        let search = $('#txtSearch').val();
+        console.log(search);
+
+        $('#tblVehicle').empty();
+
+        $.ajax({
+            url: VEHICLE_PATH + "/searchByReg/" + search,
+            dataType: 'json',
+            type: 'get',
+            cache: false,
+            success: function (data) {
+                console.log(data)
+                console.log(data.data.length)
+                var event_data = '';
+                $.each(data.data, function (index, value) {
+                    event_data += '<tr>';
+                    event_data += '<td>' + value.vehicleID + '</td>';
+                    event_data += '<td>' + value.regNumber + '</td>';
+                    event_data += '<td>' + value.brand + '</td>';
+                    event_data += '<td>' + value.model + '</td>';
+                    event_data += '<td>' + value.type + '</td>';
+                    event_data += '<td>' + value.color + '</td>';
+                    event_data += '<td>' + value.transmissionType + '</td>';
+                    event_data += '<td>' + value.fuelType + '</td>';
+                    event_data += '<td>' + value.passNumber + '</td>';
+                    event_data += '<tr>';
+                });
+                $("#tblVehicle").append(event_data);
+                $('#tblVehicle>tr').css('cursor', 'pointer');
+
+                $('#tblVehicle>tr').click(function () {
+                    let id = $(this).children('td:eq(0)').text();
+
+                    $('#lblVehicleID').text(id);
+
+                    $.ajax({
+                        url: VEHICLE_PATH+"/search/" + id,
+                        dataType: 'json',
+                        type: 'get',
+                        cache: false,
+                        success: function (data) {
+                            $('#txtBrand').val(data.data.brand);
+                            $('#txtModel').val(data.data.model);
+                            $('#txtRegNumber').val(data.data.regNumber);
+                            $('#txtColor').val(data.data.color);
+                            $('#txtNoOfPassengers').val(data.data.passNumber);
+                            $('#txtExtraFee').val(data.data.extraFee);
+                            $('#txtDailyRent').val(data.data.dailyRent);
+                            $('#txtDailyKM').val(data.data.dailyKM);
+                            $('#txtMonthlyRent').val(data.data.monthlyRent);
+                            $('#cmbType').val(data.data.type);
+                            $('#cmbTransmission').val(data.data.transmissionType);
+                            $('#cmbFuel').val(data.data.fuelType);
+                            document.getElementById('uploadFrontView').setAttribute('src', '..' + getImgPath(data.data.fontView));
+                            document.getElementById('uploadBackView').setAttribute('src', '..' + getImgPath(data.data.sideView));
+                            document.getElementById('uploadSideView').setAttribute('src', '..' + getImgPath(data.data.backView));
+                            document.getElementById('uploadInteriorView').setAttribute('src', '..' + getImgPath(data.data.interiorView));
+                        }
+                    });
+
+                    $('#btnAdd').addClass('d-none');
+                    $('#btnUpdate').removeClass('d-none');
+                    $('#btnDelete').removeClass('d-none');
+                });
+            }
+        });
+    });
+
+    $('#btnAdd').click(function () {
+        let vehicleID = $('#lblVehicleID').text();
+        let brand = $('#txtBrand').val();
+        let model = $('#txtModel').val();
+        let regNumber = $('#txtRegNumber').val();
+        let color = $('#txtColor').val();
+        let noOfPassengers = $('#txtNoOfPassengers').val();
+        let extraFee = $('#txtExtraFee').val();
+        let dailyRent = $('#txtDailyRent').val();
+        let dailyKM = $('#txtDailyKM').val();
+        let monthlyRent = $('#txtMonthlyRent').val();
+        let monthlyKM = $('#txtMonthlyKM').val();
+        let type = $('#cmbType').val();
+        let transmission = $('#cmbTransmission').val();
+        let fuel = $('#cmbFuel').val();
+
+        var fileObjectF = $("#uploadFrontView")[0].files[0];
+        var fileNameF = $("#uploadFrontView")[0].files[0].name; //get file name
+        var dataFrontView = new FormData();
+        dataFrontView.append("myFile", fileObjectF, fileNameF);
+
+        var fileObjectB = $("#uploadBackView")[0].files[0];
+        var fileNameB = $("#uploadBackView")[0].files[0].name; //get file name
+        var dataBackView = new FormData();
+        dataBackView.append("myFile", fileObjectB, fileNameB);
+
+        var fileObjectS = $("#uploadSideView")[0].files[0];
+        var fileNameS = $("#uploadSideView")[0].files[0].name; //get file name
+        var dataSideView = new FormData();
+        dataSideView.append("myFile", fileObjectS, fileNameS);
+
+        var fileObjectI = $("#uploadInteriorView")[0].files[0];
+        var fileNameI = $("#uploadInteriorView")[0].files[0].name; //get file name
+        var dataInteriorView = new FormData();
+        dataInteriorView.append("myFile", fileObjectI, fileNameI);
+
+        var imgFrontView = uploadImage(dataFrontView);
+        var imgBackView = uploadImage(dataBackView);
+        var imgSideView = uploadImage(dataSideView);
+        var imgInteriorView = uploadImage(dataInteriorView);
+
+        if (imgFrontView !== "") {
+            if (imgBackView !== "") {
+                if (imgSideView !== "") {
+                    if (imgInteriorView !== "") {
+                        $.ajax({
+                            method: "POST",
+                            url: VEHICLE_PATH,
+                            async: true,
+                            contentType: 'application/json',
+                            data: JSON.stringify({
+                                brand: brand,
+                                model: model,
+                                type: type,
+                                extraFee: extraFee,
+                                regNumber: regNumber,
+                                color: color,
+                                passNumber: noOfPassengers,
+                                transmissionType: transmission,
+                                fuelType: fuel,
+                                dailyRent: dailyRent,
+                                monthlyRent: monthlyRent,
+                                dailyKM: dailyKM,
+                                monthlyKM: monthlyKM,
+                                fontView: imgFrontView,
+                                sideView: imgSideView,
+                                backView: imgBackView,
+                                interiorView: imgInteriorView
+                                // rentOrder: null
+                            }),
+                            success: function (data) {
+                                console.log(data.data);
+                                clearForm();
+                            }, error: function (data) {
+                                alert("Vehicle : " + data.data);
+                            }
+                        });
+                    } else {
+                        alert("dataInteriorView -> File : " + imgInteriorView);
+                    }
+                } else {
+                    alert("dataSideView -> File : " + imgSideView);
+                }
+            } else {
+                alert("dataBackView -> File : " + imgBackView);
+            }
+        } else {
+            alert("dataFrontView -> File : " + imgFrontView);
+        }
+
+    });
+
+    $('#btnUpdate').click(function () {
+        let vehicleID = $('#lblVehicleID').text();
+        let brand = $('#txtBrand').val();
+        let model = $('#txtModel').val();
+        let regNumber = $('#txtRegNumber').val();
+        let color = $('#txtColor').val();
+        let noOfPassengers = $('#txtNoOfPassengers').val();
+        let extraFee = $('#txtExtraFee').val();
+        let dailyRent = $('#txtDailyRent').val();
+        let dailyKM = $('#txtDailyKM').val();
+        let monthlyRent = $('#txtMonthlyRent').val();
+        let monthlyKM = $('#txtMonthlyKM').val();
+        let type = $('#cmbType').val();
+        let transmission = $('#cmbTransmission').val();
+        let fuel = $('#cmbFuel').val();
+
+        var fileObjectF = $("#uploadFrontView")[0].files[0];
+        var fileNameF = $("#uploadFrontView")[0].files[0].name; //get file name
+        var dataFrontView = new FormData();
+        dataFrontView.append("myFile", fileObjectF, fileNameF);
+
+        var fileObjectB = $("#uploadBackView")[0].files[0];
+        var fileNameB = $("#uploadBackView")[0].files[0].name; //get file name
+        var dataBackView = new FormData();
+        dataBackView.append("myFile", fileObjectB, fileNameB);
+
+        var fileObjectS = $("#uploadSideView")[0].files[0];
+        var fileNameS = $("#uploadSideView")[0].files[0].name; //get file name
+        var dataSideView = new FormData();
+        dataSideView.append("myFile", fileObjectS, fileNameS);
+
+        var fileObjectI = $("#uploadInteriorView")[0].files[0];
+        var fileNameI = $("#uploadInteriorView")[0].files[0].name; //get file name
+        var dataInteriorView = new FormData();
+        dataInteriorView.append("myFile", fileObjectI, fileNameI);
+
+        var imgFrontView = uploadImage(dataFrontView);
+        var imgBackView = uploadImage(dataBackView);
+        var imgSideView = uploadImage(dataSideView);
+        var imgInteriorView = uploadImage(dataInteriorView);
+
+
+        if (imgFrontView !== "") {
+            if (imgBackView !== "") {
+                if (imgSideView !== "") {
+                    if (imgInteriorView !== "") {
+                        $.ajax({
+                            method: "PUT",
+                            url: VEHICLE_PATH,
+                            async: true,
+                            contentType: 'application/json',
+                            data: JSON.stringify({
+                                vehicleID: vehicleID,
+                                brand: brand,
+                                model: model,
+                                type: type,
+                                extraFee: extraFee,
+                                regNumber: regNumber,
+                                color: color,
+                                passNumber: noOfPassengers,
+                                transmissionType: transmission,
+                                fuelType: fuel,
+                                dailyRent: dailyRent,
+                                monthlyRent: monthlyRent,
+                                dailyKM: dailyKM,
+                                monthlyKM: monthlyKM,
+                                fontView: imgFrontView,
+                                sideView: imgSideView,
+                                backView: imgBackView,
+                                interiorView: imgInteriorView
+                                // rentOrder: null
+                            }),
+                            success: function (data) {
+                                console.log(data.data);
+                                clearForm();
+                            }, error: function (data) {
+                                alert("Vehicle : " + data.data);
+                            }
+                        });
+                    } else {
+                        alert("dataInteriorView -> File : " + imgInteriorView);
+                    }
+                } else {
+                    alert("dataSideView -> File : " + imgSideView);
+                }
+            } else {
+                alert("dataBackView -> File : " + imgBackView);
+            }
+        } else {
+            alert("dataFrontView -> File : " + imgFrontView);
+        }
+
+
+    });
+
+    $('#btnDelete').click(function () {
+        let vehicleID = $('#lblVehicleID').text();
+
+        $.ajax({
+            method: "DELETE",
+            url: VEHICLE_PATH+"/delete/"+vehicleID,
+            async: true,
+            success: function (data) {
+                console.log(data.data);
+                clearForm();
+            }, error: function (data) {
+                alert("Customer : " + data.data);
+            }
+        });
+    });
+
+    $('#uploadFrontView').change(() => {
+        const file = $('#uploadFrontView').prop("files")[0];
+        const imagen = URL.createObjectURL(file);
+        console.log(URL.createObjectURL(file));
+        $('#imgFrontView').attr('src', imagen);
+    });
+
+    $('#uploadBackView').change(() => {
+        const file = $('#uploadBackView').prop("files")[0];
+        const imagen = URL.createObjectURL(file);
+        console.log(URL.createObjectURL(file));
+        $('#imgBackView').attr('src', imagen);
+    });
+
+    $('#uploadSideView').change(() => {
+        const file = $('#uploadSideView').prop("files")[0];
+        const imagen = URL.createObjectURL(file);
+        console.log(URL.createObjectURL(file));
+        $('#imgSideView').attr('src', imagen);
+    });
+
+    $('#uploadInteriorView').change(() => {
+        const file = $('#uploadInteriorView').prop("files")[0];
+        const imagen = URL.createObjectURL(file);
+        console.log(URL.createObjectURL(file));
+        $('#imgInteriorView').attr('src', imagen);
+    });
+
+    $('#btnSearchClear').click(function () {
+        loadAllVehicleToTheTable();
+    });
+
+    $('#btnClear').click(function () {
+        clearForm();
+    });
+
+    function clearForm() {
+        $('#btnAdd').removeClass('d-none');
+        $('#btnUpdate').addClass('d-none');
+        $('#btnDelete').addClass('d-none');
+        loadAllVehicleToTheTable();
+        $('#lblVehicleID').text("###");
+        document.getElementById('imgFrontView').setAttribute('src', "../asserts/img/temp1x1.jpg");
+        document.getElementById('imgSideView').setAttribute('src', "../asserts/img/temp1x1.jpg");
+        document.getElementById('imgBackView').setAttribute('src', "../asserts/img/temp1x1.jpg");
+        document.getElementById('imgInteriorView').setAttribute('src', "../asserts/img/temp1x1.jpg");
+        $('#txtBrand').clear();
+        $('#txtModel').clear();
+        $('#txtRegNumber').clear();
+        $('#txtColor').clear();
+        $('#txtNoOfPassengers').clear();
+        $('#txtExtraFee').clear();
+        $('#txtDailyRent').clear();
+        $('#txtDailyKM').clear();
+        $('#txtMonthlyRent').clear();
+        $('#txtMonthlyKM').clear();
+        $('#uploadFrontView').clear();
+        $('#uploadBackView').clear();
+        $('#uploadSideView').clear();
+        $('#uploadInteriorView').clear();
+    }
+
+</script>
+</body>
+</html>

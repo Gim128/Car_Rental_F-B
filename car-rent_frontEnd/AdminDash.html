@@ -52,19 +52,19 @@
         <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
             <div class="position-sticky pt-3">
                 <ul class="nav flex-column">
-                    <li class="nav-item" id="lblDashboard">
+                    <li class="nav-item" id="lblCustomer">
                         <a class="nav-link active" aria-current="page" href="#">
                             <span data-feather="home"></span>
                             Customers
                         </a>
                     </li>
-                    <li class="nav-item" id="lblManageCustomers">
+                    <li class="nav-item" id="lblDrivers">
                         <a class="nav-link" href="#">
                             <span data-feather="users"></span>
                             Drivers
                         </a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item" id="lblCars">
                         <a class="nav-link" href="#">
                             <span data-feather="shopping-cart"></span>
                             Cars
@@ -167,18 +167,25 @@
 
     });
 
-    $('#lblDashboard').click(function () {
+    $('#lblCustomer').click(function () {
         $('#dash-view').load("subCatelogue/customert.html");
         $('#lblDashboard a').addClass('active');
-        $('#lblManageCustomers a').removeClass('active');
-        $('#lblManageVehicles a').removeClass('active');
+        $('#lblDrivers a').removeClass('active');
+        $('#lblCars a').removeClass('active');
     });
-    $('#lblManageCustomers').click(function () {
-        $('#dash-view').load("Driver.html");
-        $('#lblManageCustomers a').addClass('active');
-        $('#lblDashboard a').removeClass('active');
-        $('#lblManageVehicles a').removeClass('active');
+    $('#lblDrivers').click(function () {
+        $('#dash-view').load("subCatelogue/Driver.html");
+        $('#lblDrivers a').addClass('active');
+        $('#lblCustomer a').removeClass('active');
+        $('#lblCars a').removeClass('active');
     });
+    $('#lblCars').click(function () {
+        $('#dash-view').load("subCatelogue/car.html");
+        $('#lblDrivers a').addClass('active');
+        $('#lblCustomer a').removeClass('active');
+        $('#lblCars a').removeClass('active');
+    });
+
 </script>
 </body>
 </html>
